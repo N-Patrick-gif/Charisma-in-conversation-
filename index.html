@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0f172a">
+<meta name="description" content="PRÉSENCE — coach quotidien de charisme, conversation et éloquence.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="style.css">
+<title>PRÉSENCE — Charisme & Conversation</title>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand"><div class="logo">P</div><div><b>PRÉSENCE</b><div class="small">Charisme · Conversation · Éloquence</div></div></div>
+  <div class="top-actions"><button class="btn" id="installBtn">Installer</button><button class="btn" id="resetBtn">Réinitialiser</button></div>
+</header>
+
+<section class="hero">
+  <div class="card">
+    <div class="avatar-wrap">
+      <img class="avatar" src="avatar.png" alt="Photo de profil" onerror="this.style.display='none'">
+      <div>
+        <span class="badge accent">Programme personnalisé</span>
+        <h1>Devenir plus à l'aise, pas jouer un personnage.</h1>
+        <p>Entraînement quotidien conçu pour travailler la voix, l'affirmation, le small talk, la conversation, les rencontres et la prise de parole — avec respect et authenticité.</p>
+      </div>
+    </div>
+    <div class="kpis">
+      <div class="kpi"><b id="score">0</b><span>score de progression</span></div>
+      <div class="kpi"><b id="streak">0</b><span>jours consécutifs</span></div>
+      <div class="kpi"><b id="sessions">0</b><span>sessions terminées</span></div>
+    </div>
+  </div>
+  <div class="card mission">
+    <span class="badge green">Mission du jour</span>
+    <h2 id="missionTitle">12 minutes</h2>
+    <p id="missionText">Respiration → voix → small talk → réponse spontanée → bilan.</p>
+    <button class="btn primary" id="startDaily">Commencer</button>
+  </div>
+</section>
+
+<nav class="nav">
+  <button class="btn" data-go="dashboard">Accueil</button>
+  <button class="btn" data-go="practice">Pratique</button>
+  <button class="btn" data-go="roleplay">Conversation</button>
+  <button class="btn" data-go="scenarios">Situations</button>
+  <button class="btn" data-go="progress">Progression</button>
+  <button class="btn" data-go="rules">Méthode</button>
+</nav>
+
+<main>
+<section id="dashboard" class="section">
+  <div class="grid">
+    <div class="card"><span class="badge">01 · Voix</span><h3>Parler plus lentement</h3><p>Pause courte avant de répondre. Débit confortable. Finir les phrases.</p></div>
+    <div class="card"><span class="badge">02 · Conversation</span><h3>Question → rebond → partage</h3><p>Ne pas transformer l'échange en interrogatoire : écouter, rebondir, puis donner quelque chose de soi.</p></div>
+    <div class="card"><span class="badge">03 · Présence</span><h3>Regard, posture, sourire</h3><p>Objectif : présence calme. Pas besoin de dominer la pièce.</p></div>
+  </div>
+  <div class="grid2 section">
+    <div class="card">
+      <h2>Le protocole 3–2–1</h2>
+      <div class="metric"><span>3 secondes</span><b>inspirer / relâcher</b></div>
+      <div class="metric"><span>2 secondes</span><b>pause avant réponse</b></div>
+      <div class="metric"><span>1 idée</span><b>par phrase importante</b></div>
+      <p class="quote">Si le bégaiement apparaît : ne pas lutter contre le mot. Ralentir, respirer, reprendre simplement. La réussite = continuer à communiquer, pas parler sans aucune difficulté.</p>
+    </div>
+    <div class="card">
+      <h2>Défi réel du jour</h2>
+      <p id="realChallenge"></p>
+      <button class="btn success" id="newChallenge">Nouveau défi</button>
+      <button class="btn" id="doneChallenge">J'ai essayé</button>
+    </div>
+  </div>
+</section>
+
+<section id="practice" class="section hidden">
+  <div class="card">
+    <span class="badge accent">Coach vocal</span>
+    <h2>Pratique guidée</h2>
+    <p>Lis le texte, écoute-le, puis prononce-le à ton rythme. Tu peux ensuite utiliser le micro pour obtenir une transcription quand le navigateur le permet.</p>
+    <div class="tabs">
+      <button class="btn" data-ex="breath">Respiration</button>
+      <button class="btn" data-ex="articulation">Articulation</button>
+      <button class="btn" data-ex="smalltalk">Small talk</button>
+      <button class="btn" data-ex="assert">Affirmation</button>
+    </div>
+    <div class="card" style="background:#0b1427">
+      <h3 id="exTitle">Respiration + débit</h3>
+      <p id="exText">« Je prends le temps de répondre. Je n'ai pas besoin de me dépêcher. Je peux faire une pause et continuer. »</p>
+      <div class="row">
+        <button class="btn primary" id="speakBtn">🔊 Écouter</button>
+        <button class="btn" id="micBtn">🎙️ Parler</button>
+        <span class="small" id="micStatus">Micro : prêt</span>
+      </div>
+      <textarea id="transcript" placeholder="La transcription vocale apparaîtra ici — ou écris ta réponse."></textarea>
+      <button class="btn success" id="analyzeBtn">Analyser ma réponse</button>
+      <div id="analysisBox" class="section"></div>
+    </div>
+  </div>
+</section>
+
+<section id="roleplay" class="section hidden">
+  <div class="grid2">
+    <div class="card">
+      <span class="badge accent">Simulateur</span>
+      <h2 id="roleTitle">Rencontre informelle</h2>
+      <div class="chat" id="chat"></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn primary" id="roleSpeak">🔊 Faire parler le coach</button>
+        <button class="btn" id="roleMic">🎙️ Répondre au micro</button>
+      </div>
+      <textarea id="roleInput" placeholder="Ta réponse..."></textarea>
+      <div class="row">
+        <button class="btn success" id="sendRole">Envoyer</button>
+        <button class="btn" id="nextRole">Changer de situation</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Ce que tu entraînes</h2>
+      <div class="metric"><span>Clarté</span><b id="mClarity">—</b></div>
+      <div class="metric"><span>Ouverture</span><b id="mOpen">—</b></div>
+      <div class="metric"><span>Question/rebond</span><b id="mQuestion">—</b></div>
+      <div class="metric"><span>Concision</span><b id="mConcise">—</b></div>
+      <p class="small">Ces indicateurs sont des heuristiques locales, pas une mesure scientifique de ta personnalité ou de ton attractivité.</p>
+    </div>
+  </div>
+</section>
+
+<section id="scenarios" class="section hidden">
+  <div class="card">
+    <h2>Bibliothèque de situations</h2>
+    <p>Choisis une situation et entraîne une réponse de 20 à 60 secondes. Le but est de savoir quoi dire même quand tu ne contrôles pas le contexte.</p>
+    <div class="grid" id="scenarioGrid"></div>
+  </div>
+</section>
+
+<section id="progress" class="section hidden">
+  <div class="grid2">
+    <div class="card">
+      <h2>Tableau de progression</h2>
+      <div class="metric"><span>Confiance</span><b id="pConfidence">0/100</b></div>
+      <div class="metric"><span>Éloquence</span><b id="pEloquence">0/100</b></div>
+      <div class="metric"><span>Conversation</span><b id="pConversation">0/100</b></div>
+      <div class="metric"><span>Affirmation</span><b id="pAssert">0/100</b></div>
+      <div class="progress" style="margin-top:14px"><i id="overallBar"></i></div>
+    </div>
+    <div class="card">
+      <h2>Journal express</h2>
+      <label>Ce que j'ai réussi aujourd'hui</label>
+      <textarea id="journal" placeholder="Une phrase suffit."></textarea>
+      <button class="btn success" id="saveJournal">Enregistrer</button>
+      <div id="journalMsg" class="small"></div>
+    </div>
+  </div>
+</section>
+
+<section id="rules" class="section hidden">
+  <div class="card">
+    <h2>La méthode PRÉSENCE</h2>
+    <div class="grid">
+      <div><h3>P — Pause</h3><p>Respirer avant de répondre. Une pause n'est pas un échec.</p></div>
+      <div><h3>R — Regard</h3><p>Regard naturel, alterné avec des pauses visuelles. Pas de fixation.</p></div>
+      <div><h3>É — Écoute</h3><p>Repérer un détail dans la réponse de l'autre et rebondir dessus.</p></div>
+      <div><h3>S — Simplicité</h3><p>Des phrases courtes et concrètes sont souvent plus puissantes.</p></div>
+      <div><h3>E — Expression</h3><p>Partager une opinion, une expérience ou une émotion sans surjouer.</p></div>
+      <div><h3>N — Non-respect interdit</h3><p>Pas de manipulation, pression, mensonge ou technique destinée à contourner le consentement.</p></div>
+      <div><h3>C — Curiosité</h3><p>Une bonne conversation cherche à comprendre, pas à impressionner à tout prix.</p></div>
+      <div><h3>E — Exit élégant</h3><p>« Ravi d'avoir échangé. Je te laisse, bonne journée ! » est une compétence sociale.</p></div>
+    </div>
+    <p class="quote"><b>Attraction :</b> aucune méthode ne garantit d'être attirant pour « toutes les femmes ». L'objectif réaliste est d'améliorer la présentation de soi, la conversation, l'assurance et la capacité à créer des rencontres réciproques.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  Version locale gratuite. Les données de progression restent dans le stockage du navigateur. La reconnaissance vocale dépend du navigateur/appareil et peut utiliser un service distant selon sa configuration.
+</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
